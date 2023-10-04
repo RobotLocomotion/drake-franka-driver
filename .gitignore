@@ -1,0 +1,10 @@
+/bazel-*
+bazel.log
+.project/
+.vscode/
+.clwb/
+.idea/
+
+core
+*~
+*.jlp

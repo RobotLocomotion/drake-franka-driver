@@ -1,0 +1,84 @@
+# -*- python -*-
+
+load("//tools/lint:lint.bzl", "add_lint_tests")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_binary(
+    name = "franka_driver_v5",
+    srcs = [
+        "franka_driver.cc",
+    ],
+    deps = [
+        "@drake//common:common",
+        "@drake//lcmtypes:panda",
+        "@drake//multibody/plant",
+        "@drake//multibody/parsing:parsing",
+        "@gflags",
+        "@lcm",
+        "@libfranka_v5",
+    ],
+    data = [
+        "//models:franka_control_models",
+        "@drake//manipulation/models/franka_description:models",
+    ],
+)
+
+cc_binary(
+    name = "franka_driver_v4",
+    srcs = [
+        "franka_driver.cc",
+    ],
+    deps = [
+        "@drake//common:common",
+        "@drake//lcmtypes:panda",
+        "@drake//multibody/plant",
+        "@drake//multibody/parsing:parsing",
+        "@gflags",
+        "@lcm",
+        "@libfranka_v4",
+    ],
+    data = [
+        "//models:franka_control_models",
+        "@drake//manipulation/models/franka_description:models",
+    ],
+)
+
+cc_binary(
+    name = "franka_hand_driver_v5",
+    srcs = [
+        "franka_hand_driver.cc",
+    ],
+    deps = [
+        "@drake//common:common",
+        "@drake//lcmtypes:panda",
+        "@drake//lcmtypes:schunk",
+        "@gflags",
+        "@lcm",
+        "@libfranka_v5",
+    ],
+    data = [
+        "//models:franka_control_models",
+        "@drake//manipulation/models/franka_description:models",
+    ],
+)
+
+cc_binary(
+    name = "franka_hand_driver_v4",
+    srcs = [
+        "franka_hand_driver.cc",
+    ],
+    deps = [
+        "@drake//common:common",
+        "@drake//lcmtypes:panda",
+        "@drake//lcmtypes:schunk",
+        "@gflags",
+        "@lcm",
+        "@libfranka_v4",
+    ],
+    data = [
+        "//models:franka_control_models",
+        "@drake//manipulation/models/franka_description:models",
+    ],
+)
+add_lint_tests()

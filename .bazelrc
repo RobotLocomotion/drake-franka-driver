@@ -1,0 +1,15 @@
+# Default to an optimized build to match Drake.
+build -c opt
+
+# Default build options to match Drake.
+build --force_pic
+build --strip=never
+build --strict_system_includes
+
+# Use C++20.
+# Bazel has two universes of command-line copts and linkopts: the "target"
+# config (`--copt`) and the "host" aka "exec" config (`--host_copt`).
+# Since franka_driver doesn't cross-compile, we want the two configs to be the same,
+# so we should always set both flavors for all copts and linkopts.
+build --cxxopt=-std=c++20
+build --host_cxxopt=-std=c++20

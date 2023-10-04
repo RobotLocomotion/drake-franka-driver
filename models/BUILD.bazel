@@ -1,0 +1,10 @@
+filegroup(
+    name = "franka_control_models",
+    srcs = [
+        "add_franka_control.yaml",
+    ],
+    data = [
+        "@drake//manipulation/models/franka_description:models",
+    ],
+    visibility = ["//visibility:public"],
+)

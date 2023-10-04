@@ -1,0 +1,14 @@
+# -*- python -*-
+# Copyright 2016-2019 Toyota Research Institute.  All rights reserved.
+
+cc_library(
+    name = "poco",
+    srcs = glob(["lib/libPoco*.so", "lib/*/libPoco*.so"]),
+    hdrs = glob([
+        "include/Poco/**/*.h",
+        "include/Poco/*.h",
+    ]),
+    includes = ["include/Poco"],
+    visibility = ["//visibility:public"],
+)
+

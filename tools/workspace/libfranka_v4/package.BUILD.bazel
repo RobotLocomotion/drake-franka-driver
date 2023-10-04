@@ -1,0 +1,19 @@
+# -*- mode: python -*-
+# vi: set ft=python :
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "libfranka_v4",
+    srcs = glob([
+        "src/*.h",
+        "src/*.cpp",
+    ]),
+    hdrs = glob(["include/franka/*.h"]),
+    includes = ["include"],
+    deps = [
+        "@eigen",
+        "@libfranka_common_v4",
+        "@poco",
+    ],
+)
