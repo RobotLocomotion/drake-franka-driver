@@ -1,15 +1,25 @@
-# Default to an optimized build to match Drake.
-build -c opt
+# Default to an optimized build.
+build --compilation_mode=opt
 
-# Default build options to match Drake.
+# Default build options.
 build --force_pic
 build --strip=never
-build --strict_system_includes
+
+# Default test options.
+build --test_output=errors
+build --test_summary=terse
 
 # Use C++20.
-# Bazel has two universes of command-line copts and linkopts: the "target"
-# config (`--copt`) and the "host" aka "exec" config (`--host_copt`).
-# Since franka_driver doesn't cross-compile, we want the two configs to be the same,
-# so we should always set both flavors for all copts and linkopts.
 build --cxxopt=-std=c++20
 build --host_cxxopt=-std=c++20
+
+# https://github.com/bazelbuild/bazel/issues/1164
+build --action_env=CCACHE_DISABLE=1
+
+# Use eigen, fmt, spdlog from the host OS via pkg-config, rather than bzlmod.
+# It's okay to remove this line if you'd rather use bzlmod. For details, see:
+# https://github.com/RobotLocomotion/drake/blob/master/tools/flags/BUILD.bazel
+build --@drake//tools/flags:public_repo_default=pkgconfig
+
+# Try to import user-specific configuration local to workspace.
+try-import %workspace%/user.bazelrc

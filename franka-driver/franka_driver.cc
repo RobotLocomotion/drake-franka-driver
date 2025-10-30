@@ -380,9 +380,12 @@ class PandaDriver {
     DRAKE_THROW_UNLESS(command_->num_joint_position == 0);
     DRAKE_THROW_UNLESS(command_->num_joint_torque == 0);
 
+    // Check if command has expired (following drake-iiwa-driver pattern)
+    // We check time since receipt, not the message timestamp
     const int64_t now = std::chrono::duration_cast<std::chrono::microseconds>(
-      std::chrono::system_clock::now().time_since_epoch()).count();
-    if (std::abs(now - command_->utime) > expire_usec_) {
+        std::chrono::system_clock::now().time_since_epoch()).count();
+    const int64_t stale_utime = now - command_receipt_utime_;
+    if (stale_utime > expire_usec_) {
       drake::log()->warn("Resetting state velocity command to zero");
       command_.reset();
       command_prev_.reset();
@@ -432,9 +435,12 @@ class PandaDriver {
     DRAKE_THROW_UNLESS(command_->num_joint_velocity == 0);
     DRAKE_THROW_UNLESS(command_->num_joint_torque == 0);
 
+    // Check if command has expired (following drake-iiwa-driver pattern)
+    // We check time since receipt, not the message timestamp
     const int64_t now = std::chrono::duration_cast<std::chrono::microseconds>(
-      std::chrono::system_clock::now().time_since_epoch()).count();
-    if (std::abs(now - command_->utime) > expire_usec_) {
+        std::chrono::system_clock::now().time_since_epoch()).count();
+    const int64_t stale_utime = now - command_receipt_utime_;
+    if (stale_utime > expire_usec_) {
       drake::log()->warn(
           "Leaving state position command at last known command");
       command_.reset();
@@ -556,8 +562,8 @@ class PandaDriver {
       // Tested empirically. Still needs work!
       // TODO(eric.cousineau): Do more targeted testing using tools /
       // investigation from #9183.
-      kp.setConstant(1000.0);
-      kd.setConstant(45.0);
+      kp.setConstant(1000.0*FLAGS_torque_kp_scale);
+      kd.setConstant(45.0*FLAGS_torque_kd_scale);
     } else {
       SetGainsForJointStiffnessErrorToTorque(&kp, &kd);
     }
@@ -685,6 +691,9 @@ class PandaDriver {
       const lcm::ReceiveBuffer*, const std::string&,
       const drake::lcmt_panda_command* command) {
     command_ = *command;
+    // Track receipt time (following drake-iiwa-driver pattern)
+    command_receipt_utime_ = std::chrono::duration_cast<std::chrono::microseconds>(
+        std::chrono::system_clock::now().time_since_epoch()).count();
   }
 
   void PublishRobotState(const franka::RobotState& state) {
@@ -757,6 +766,7 @@ class PandaDriver {
   drake::lcmt_panda_status status_msg_{};
   std::optional<drake::lcmt_panda_command> command_;
   std::optional<drake::lcmt_panda_command> command_prev_;
+  int64_t command_receipt_utime_{0};
 
   Eigen::VectorXd coriolis_vector_;
   Eigen::MatrixXd inertia_matrix_;

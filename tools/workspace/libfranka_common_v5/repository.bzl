@@ -12,8 +12,8 @@ def libfranka_common_v5_repository(
     github_archive(
         name = name,
         repository = "frankaemika/libfranka-common",
-        commit = "ea26b89aa302b1456c825fb622b414bb3b1013ce",
-        sha256 = "2f8c3dc6a63ab4bcb8ab770b4f39105a4a4fd64bdcd2c98755b7c51754be1ead",  # noqa
+        commit = "cd38d0ec300b7e6864407d85d1e88e2fba31ccd5",
+        sha256 = "0696297f235dc63c014232acde602aa9ad59bf8630d5b9901b32ac79f4d2dee2",  # noqa
         build_file = "//tools/workspace/libfranka_common_v5:package.BUILD.bazel",  # noqa
         mirrors = mirrors,
     )

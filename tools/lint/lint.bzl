@@ -1,3 +1,19 @@
-load("@drake//tools/lint:lint.bzl", drake_add_lint_tests = "add_lint_tests")
+load("@rules_python//python:py_test.bzl", "py_test")
 
-add_lint_tests = drake_add_lint_tests
+def _bazel_lint():
+    files = native.glob(["*.bazel", "*.bzl"], allow_empty = True)
+    if len(files) == 0:
+        return
+    buildifier = "@buildifier_prebuilt//:buildifier"
+    locations = ["$(locations %s)" % f for f in files]
+    py_test(
+        name = "buildifier_lint",
+        srcs = ["//tools/lint:buildifier.py"],
+        main = "buildifier.py",
+        data = files + [buildifier],
+        args = ["$(location %s)" % buildifier, "-mode=check"] + locations,
+        tags = ["buildifier_lint", "lint"],
+    )
+
+def add_lint_tests():
+    _bazel_lint()

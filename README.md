@@ -1,10 +1,20 @@
 # Panda Arm - Franka Emika
-This repository contains the application code used to communicate with the Franka Emika arm from Drake. 
+This repository contains the application code used to communicate with the Franka Emika arm from Drake.
+
+## Software Versions
+
+This driver supports both FR3 (newer) and FE3 (older) Franka robots:
+
+- **Drake**: v1.45.0
+- **libfranka v5** (~0.15.0): For FR3 robots with firmware v5.x
+- **libfranka v4** (0.9.0): For FE3 robots with firmware v4.x
+- **Pinocchio**: 2.6.21 (required for libfranka v5 dynamics)
+- **LCM**: Latest from main branch 
 
 ## Building the driver
-Before you begin, install the prerequisite:
+Before you begin, install the prerequisites:
 ```
-sudo apt install libgflags-dev
+sudo apt install libgflags-dev libpoco-dev
 ```
 
 To build, run `bazel build //...`.  This will output two versions of
@@ -29,8 +39,8 @@ To add a gripper, update the `models/add_franka_control.yaml` with the respectiv
 ## Links
 
 * [Website](https://www.franka.de/technology)
-* [Franka Control Interface (FCI) Documentation](https://frankaemika.github.io/docs/)
-* [`libfranka` API Docs](https://frankaemika.github.io/libfranka/)
+* [Franka Control Interface (FCI) Documentation](https://frankarobotics.github.io/docs/)
+* [`libfranka` API Docs](https://frankarobotics.github.io/libfranka/)
 * [Panda datasheet](https://s3-eu-central-1.amazonaws.com/franka-de-uploads/uploads/Datasheet-EN.pdf)
 
 ## Notes
@@ -39,11 +49,11 @@ To add a gripper, update the `models/add_franka_control.yaml` with the respectiv
     * The FCI docs have excellent instructions for getting your network
     interface on Ubuntu set up.
 * There are two very distinct versions of Pandas: the FE3 (older) and FR3 (newer)
-* There are three version to think about: firmware on the robot (we use
-`v4.x`, and `v5.x`) and `libfranka` driver software on the host PC
-(`0.8.0` for `v4.x` FE3, and `0.10.0` for `v5.x` FR3).
+* There are three versions to think about: firmware on the robot (we use
+`v4.x` and `v5.x`), `libfranka` driver software on the host PC
+(0.9.0 for `v4.x` FE3, and ~0.15.0 for `v5.x` FR3), and the robot model itself.
     * You should see suffixes like `_v4` and `_v5` for relevant
-    libraries and binaries.
+    libraries and binaries throughout this codebase.
     * If you use the wrong driver, you should get an error like:
 
             terminate called after throwing an instance of 'franka::IncompatibleVersionException'

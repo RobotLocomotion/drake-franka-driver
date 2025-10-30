@@ -8,12 +8,22 @@ cc_library(
     srcs = glob([
         "src/*.h",
         "src/*.cpp",
+        "src/**/*.h",
+        "src/**/*.hpp",
+        "src/**/*.cpp",
     ]),
-    hdrs = glob(["include/franka/*.h"]),
+    hdrs = glob([
+        "include/franka/*.h",
+        "include/franka/**/*.hpp",
+    ]),
     includes = ["include"],
     deps = [
         "@eigen",
         "@libfranka_common_v5",
+        "@pinocchio",
         "@poco",
+    ],
+    copts = [
+        "-std=c++17",
     ],
 )

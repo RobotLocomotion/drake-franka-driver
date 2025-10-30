@@ -3,12 +3,19 @@
 
 cc_library(
     name = "poco",
-    srcs = glob(["lib/libPoco*.so", "lib/*/libPoco*.so"]),
+    srcs = glob(
+        [
+            "lib/libPoco*.so",
+            "lib/x86_64-linux-gnu/libPoco*.so",
+            "lib/aarch64-linux-gnu/libPoco*.so",
+        ],
+        allow_empty = True,
+    ),
     hdrs = glob([
         "include/Poco/**/*.h",
         "include/Poco/*.h",
     ]),
-    includes = ["include/Poco"],
+    includes = ["include"],
     visibility = ["//visibility:public"],
 )
 

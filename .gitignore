@@ -8,3 +8,5 @@ bazel.log
 core
 *~
 *.jlp
+MODULE.bazel.lock
+.claude/*

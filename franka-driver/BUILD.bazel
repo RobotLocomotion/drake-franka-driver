@@ -15,12 +15,12 @@ cc_binary(
         "@drake//multibody/plant",
         "@drake//multibody/parsing:parsing",
         "@gflags",
-        "@lcm",
+        "@lcm//lcm:lcm-static",
         "@libfranka_v5",
     ],
     data = [
         "//models:franka_control_models",
-        "@drake//manipulation/models/franka_description:models",
+        "@drake_models//:franka_description",
     ],
 )
 
@@ -35,12 +35,12 @@ cc_binary(
         "@drake//multibody/plant",
         "@drake//multibody/parsing:parsing",
         "@gflags",
-        "@lcm",
+        "@lcm//lcm:lcm-static",
         "@libfranka_v4",
     ],
     data = [
         "//models:franka_control_models",
-        "@drake//manipulation/models/franka_description:models",
+        "@drake_models//:franka_description",
     ],
 )
 
@@ -54,12 +54,12 @@ cc_binary(
         "@drake//lcmtypes:panda",
         "@drake//lcmtypes:schunk",
         "@gflags",
-        "@lcm",
+        "@lcm//lcm:lcm-static",
         "@libfranka_v5",
     ],
     data = [
         "//models:franka_control_models",
-        "@drake//manipulation/models/franka_description:models",
+        "@drake_models//:franka_description",
     ],
 )
 
@@ -73,12 +73,12 @@ cc_binary(
         "@drake//lcmtypes:panda",
         "@drake//lcmtypes:schunk",
         "@gflags",
-        "@lcm",
+        "@lcm//lcm:lcm-static",
         "@libfranka_v4",
     ],
     data = [
         "//models:franka_control_models",
-        "@drake//manipulation/models/franka_description:models",
+        "@drake_models//:franka_description",
     ],
 )
 add_lint_tests()

@@ -2,9 +2,12 @@ filegroup(
     name = "franka_control_models",
     srcs = [
         "add_franka_control.yaml",
+        "add_franka_control_with_frozen_hand.yaml",
+        "package.xml",
+        "panda_hand_frozen.urdf",
     ],
     data = [
-        "@drake//manipulation/models/franka_description:models",
+        "@drake_models//:franka_description",
     ],
     visibility = ["//visibility:public"],
 )
