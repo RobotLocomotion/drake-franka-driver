@@ -28,10 +28,10 @@ To add a gripper, update the `models/add_franka_control.yaml` with the respectiv
 
 ## Links
 
-* [Website](https://www.franka.de/technology)
-* [Franka Control Interface (FCI) Documentation](https://frankaemika.github.io/docs/)
-* [`libfranka` API Docs](https://frankaemika.github.io/libfranka/)
-* [Panda datasheet](https://s3-eu-central-1.amazonaws.com/franka-de-uploads/uploads/Datasheet-EN.pdf)
+* [Website](https://www.franka.de)
+* [Franka Control Interface (FCI) Documentation](https://frankarobotics.github.io/docs/)
+* [`libfranka` API Docs](https://frankarobotics.github.io/libfranka/)
+* [Product Manual Franka Emika Robot](https://franka.de/documents)
 
 ## Notes
 
